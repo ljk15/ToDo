@@ -56,9 +56,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 case R.id.add_btn:
                     String taskAdded = newTask.getText().toString();
                     tasks.add(taskAdded);
-                    customAdapter.notifyDataSetChanged();
+                    customAdapter.notifyItemInserted(tasks.size()-1);
                     newTask.setText("");
-
                     FileHelper.writeData(tasks, this);
 
                     Toast.makeText(this, "Task Added", Toast.LENGTH_SHORT).show();
@@ -67,6 +66,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         }
+
+
     /*@Override
     public void onClick(View v) {
 

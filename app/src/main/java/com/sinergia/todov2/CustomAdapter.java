@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,14 +32,27 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         holder.tasks.setText((CharSequence) task.get(position));
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, (CharSequence) task.get(position), Toast.LENGTH_SHORT).show();
+              Toast.makeText(context, task.get(position), Toast.LENGTH_SHORT).show();
             }
         });
+        holder.del.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context, task.get(position)+"deleted", Toast.LENGTH_SHORT).show();
+                task.remove(position);
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position, task.size());
+
+                FileHelper.writeData(task, context);
+            }
+        });
+
     }
 
     @Override
@@ -48,9 +62,11 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
     TextView tasks;
+    Button del;
     public MyViewHolder(View taskView) {
         super(taskView);
         tasks = (TextView) itemView.findViewById(R.id.task_row);
+        del = (Button) itemView.findViewById(R.id.del_btn);
     }
     }
 }
