@@ -29,7 +29,7 @@
             android:layout_weight="1"/>
     </LinearLayout>
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/tasks_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
