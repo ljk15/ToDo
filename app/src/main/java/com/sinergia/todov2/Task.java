@@ -12,7 +12,7 @@ public class Task {
         this.title = title;
         this.description = description;
     }
-
+*/
     @PrimaryKey(autoGenerate = true)
     private long id;
 
@@ -23,8 +23,8 @@ public class Task {
     public void setId(long id) {
         this.id = id;
     }
-*/
-    @PrimaryKey
+
+
     @NonNull
 
     @ColumnInfo(name = "task_title")

@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btn;
     private RecyclerView tasksList;
     private ArrayList<String> tasks ;
-    //private ArrayList<String> ids;
+    private ArrayList<String> ids;
     CustomAdapter customAdapter;
 
     @Override
@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         tasks = new ArrayList<>();
-       // ids = new ArrayList<>();
+        ids = new ArrayList<>();
         newTask = findViewById(R.id.add_task);
         btn = findViewById(R.id.add_btn);
         tasksList = findViewById(R.id.tasks_list);
@@ -46,9 +46,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         for (Task t:titles) {
 
             tasks.add(t.getTitle());
-           // ids.add(String.valueOf(t.getId()));
+            ids.add(String.valueOf(t.getId()));
         }
-        customAdapter = new CustomAdapter(MainActivity.this, tasks);
+        customAdapter = new CustomAdapter(MainActivity.this, tasks, ids);
         recyclerView.setAdapter(customAdapter);
         btn.setOnClickListener(this);
 
@@ -67,6 +67,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                    // ids.add(String.valueOf(task.getId()));
                     customAdapter.notifyItemInserted(tasks.size());
                     newTask.setText("");
+
+                    List<Task> titles = database.myDao().getTasks();
+                    ids.removeAll(ids);
+                    for (Task t:titles) {
+
+                        //tasks.add(t.getTitle());
+                        ids.add(String.valueOf(t.getId()));
+                    }
 
 
                     Toast.makeText(this, "Task Added", Toast.LENGTH_SHORT).show();
