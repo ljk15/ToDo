@@ -3,6 +3,7 @@ package com.sinergia.todov2;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> {
 
+    public static Database database;
     ArrayList<String> task;
     Context context;
     public CustomAdapter(Context context,ArrayList<String> task){
@@ -38,33 +40,50 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if (holder.test.getVisibility()== View.VISIBLE)
+                    holder.test.setVisibility(View.GONE);
+                else
+                    holder.test.setVisibility(View.VISIBLE);
               Toast.makeText(context, task.get(position), Toast.LENGTH_SHORT).show();
             }
         });
         holder.del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+               //Task task1 = new Task();
+
                 Toast.makeText(context, task.get(position)+"deleted", Toast.LENGTH_SHORT).show();
+
+                //database.myDao().delTask();
+
+
                 task.remove(position);
                 notifyItemRemoved(position);
                 notifyItemRangeChanged(position, task.size());
 
-                FileHelper.writeData(task, context);
-            }
+
+                    }
         });
 
     }
 
     @Override
     public int getItemCount() {
-        return task.size();
-    }
 
+        if (task.isEmpty()) {
+            return 0;
+        } else
+            return task.size();
+    }
     public class MyViewHolder extends RecyclerView.ViewHolder{
     TextView tasks;
+    TextView test;
     Button del;
     public MyViewHolder(View taskView) {
         super(taskView);
+        test = (TextView) itemView.findViewById(R.id.test);
         tasks = (TextView) itemView.findViewById(R.id.task_row);
         del = (Button) itemView.findViewById(R.id.del_btn);
     }
