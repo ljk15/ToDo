@@ -17,7 +17,7 @@
         <EditText
             android:id="@+id/add_task"
             android:hint="Enter new task"
-            android:text="test"
+
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="5"/>

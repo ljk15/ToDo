@@ -15,12 +15,13 @@ import java.util.ArrayList;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> {
 
-    public static Database database;
+    ArrayList<String> tid;
     ArrayList<String> task;
     Context context;
-    public CustomAdapter(Context context,ArrayList<String> task){
+    public CustomAdapter(Context context,ArrayList<String> task, ArrayList<String> tid){
         this.context = context;
          this.task = task;
+         this.tid = tid;
     }
 
 
@@ -35,8 +36,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
-        holder.tasks.setText((CharSequence) task.get(position));
-
+        holder.tasks.setText(task.get(position));
+        holder.test.setText(tid.get(position));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,13 +53,14 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             @Override
             public void onClick(View view) {
 
-               //Task task1 = new Task();
+               Task task1 = new Task();
 
-                Toast.makeText(context, task.get(position)+"deleted", Toast.LENGTH_SHORT).show();
+                task1.setId(Long.parseLong(tid.get(position)));
+               // task1.setTitle(task.get(position));
+                Toast.makeText(context, task.get(position)+" deleted ", Toast.LENGTH_SHORT).show();
 
-                //database.myDao().delTask();
-
-
+                MainActivity.database.myDao().delTask(task1);
+                tid.remove(position);
                 task.remove(position);
                 notifyItemRemoved(position);
                 notifyItemRangeChanged(position, task.size());
