@@ -12,19 +12,21 @@ public class Task {
         this.title = title;
         this.description = description;
     }
-*/
-    @PrimaryKey(autoGenerate = true)
-    private int id;
 
-    public int getId() {
+    @PrimaryKey(autoGenerate = true)
+    private long id;
+
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
-
+*/
+    @PrimaryKey
     @NonNull
+
     @ColumnInfo(name = "task_title")
     private String title;
 

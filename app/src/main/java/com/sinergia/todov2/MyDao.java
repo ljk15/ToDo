@@ -6,9 +6,16 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
 import java.util.List;
+
+import static android.arch.persistence.room.OnConflictStrategy.ABORT;
+import static android.arch.persistence.room.OnConflictStrategy.FAIL;
+import static android.arch.persistence.room.OnConflictStrategy.IGNORE;
+import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
+import static android.arch.persistence.room.OnConflictStrategy.ROLLBACK;
+
 @Dao
 public interface MyDao {
-    @Insert
+    @Insert(onConflict = REPLACE)
     public void addTask(Task task);
 
     @Query("select * from todolist")
