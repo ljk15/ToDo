@@ -1,7 +1,9 @@
 package com.sinergia.todov2;
 
 import android.content.Context;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.transition.TransitionManager;
 import android.view.LayoutInflater;
@@ -18,6 +20,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     ArrayList<String> tid;
     ArrayList<String> task;
     Context context;
+    Snackbar snackbar;
     public CustomAdapter(Context context,ArrayList<String> task, ArrayList<String> tid){
         this.context = context;
          this.task = task;
@@ -56,10 +59,10 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
                Task task1 = new Task();
 
                 task1.setId(Long.parseLong(tid.get(position)));
-               // task1.setTitle(task.get(position));
-                Toast.makeText(context, task.get(position)+" deleted ", Toast.LENGTH_SHORT).show();
+                snackbar.make(view, "Task Deleted :  "+ task.get(position), Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                  MainActivity.database.myDao().delTask(task1);
 
-                MainActivity.database.myDao().delTask(task1);
                 tid.remove(position);
                 task.remove(position);
                 notifyItemRemoved(position);

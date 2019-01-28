@@ -15,6 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:animateLayoutChanges="true"
+        android:layout_margin="5dp"
         android:orientation="vertical">
 
         <TextView
@@ -27,7 +28,6 @@
             android:layout_marginTop="8dp"
 
             android:padding="10dp"
-            android:text="dfsdkf"
             android:textColor="#000"
             android:textSize="20sp"
             app:layout_constraintEnd_toStartOf="@+id/del_btn"
@@ -60,7 +60,6 @@
             android:layout_marginBottom="8dp"
             android:layout_weight="5"
             android:padding="10dp"
-            android:text="test"
             android:textColor="#000"
             android:textSize="20sp"
             android:visibility="gone"
