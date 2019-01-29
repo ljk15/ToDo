@@ -1,7 +1,11 @@
 package com.sinergia.todov2;
 
 import android.arch.persistence.room.Room;
+import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.design.widget.FloatingActionButton;
+
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,20 +13,27 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     public static Database database;
     private EditText newTask;
-    private Button btn;
+    private ImageButton btn;
     private RecyclerView tasksList;
     private ArrayList<String> tasks ;
     private ArrayList<String> ids;
+    private ArrayList<String> tdes;
+    private ArrayList<String> tdate;
+    private ArrayList<String> ttime;
+
     CustomAdapter customAdapter;
+    public static FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +42,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         tasks = new ArrayList<>();
         ids = new ArrayList<>();
+        tdes = new ArrayList<>();
+        tdate = new ArrayList<>();
+        ttime = new ArrayList<>();
+
+
         newTask = findViewById(R.id.add_task);
         btn = findViewById(R.id.add_btn);
         tasksList = findViewById(R.id.tasks_list);
@@ -47,43 +63,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             tasks.add(t.getTitle());
             ids.add(String.valueOf(t.getId()));
+            tdes.add(t.getDescription());
+            tdate.add(t.getDate());
+            ttime.add(t.getTime());
+
         }
-        customAdapter = new CustomAdapter(MainActivity.this, tasks, ids);
+        customAdapter = new CustomAdapter(MainActivity.this, tasks, ids, tdes, tdate, ttime);
         recyclerView.setAdapter(customAdapter);
         btn.setOnClickListener(this);
 
-    }
-        @Override
-        public void onClick(View v) {
+        fab =  findViewById(R.id.fab);
+        fab.setOnClickListener(this);
 
-            switch(v.getId()){
-                case R.id.add_btn:
-                    String taskAdded = newTask.getText().toString();
-                    tasks.add(taskAdded);
+                fab.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick (View v){
 
-                    Task task = new Task();
-                    task.setTitle(taskAdded);
-                    database.myDao().addTask(task);
-                   // ids.add(String.valueOf(task.getId()));
-                    customAdapter.notifyItemInserted(tasks.size());
-                    newTask.setText("");
-
-                    List<Task> titles = database.myDao().getTasks();
-                    ids.removeAll(ids);
-                    for (Task t:titles) {
-
-                        //tasks.add(t.getTitle());
-                        ids.add(String.valueOf(t.getId()));
-                    }
-
-
-                    Toast.makeText(this, "Task Added", Toast.LENGTH_SHORT).show();
-
+            switch (v.getId()) {
+                case R.id.fab:
+                    Intent myIntent = new Intent(MainActivity.this, AddTask.class);
+                    MainActivity.this.startActivity(myIntent);
                     break;
-
             }
-        }
+                 }
+
+        });
+
+    }
 
 
+    @Override
+    public void onClick(View v) {
 
+    }
 }
