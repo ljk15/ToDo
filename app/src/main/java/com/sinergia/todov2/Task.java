@@ -33,7 +33,27 @@ public class Task {
     @ColumnInfo(name = "task_description")
     private String description;
 
+    @ColumnInfo(name = "task_date")
+    private String date;
 
+    @ColumnInfo(name = "task_time")
+    private String time;
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
 
     public String getTitle() {
         return title;

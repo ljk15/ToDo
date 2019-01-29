@@ -35,7 +35,7 @@
 
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
-                android:hint="Enter new task" />
+                android:hint="Enter Title For Search" />
 
             <ImageButton
                 android:id="@+id/add_btn"

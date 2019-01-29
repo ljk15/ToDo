@@ -17,6 +17,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
@@ -27,6 +28,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private RecyclerView tasksList;
     private ArrayList<String> tasks ;
     private ArrayList<String> ids;
+    private ArrayList<String> tdes;
+    private ArrayList<String> tdate;
+    private ArrayList<String> ttime;
+
     CustomAdapter customAdapter;
     public static FloatingActionButton fab;
 
@@ -37,6 +42,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         tasks = new ArrayList<>();
         ids = new ArrayList<>();
+        tdes = new ArrayList<>();
+        tdate = new ArrayList<>();
+        ttime = new ArrayList<>();
+
+
         newTask = findViewById(R.id.add_task);
         btn = findViewById(R.id.add_btn);
         tasksList = findViewById(R.id.tasks_list);
@@ -53,8 +63,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             tasks.add(t.getTitle());
             ids.add(String.valueOf(t.getId()));
+            tdes.add(t.getDescription());
+            tdate.add(t.getDate());
+            ttime.add(t.getTime());
+
         }
-        customAdapter = new CustomAdapter(MainActivity.this, tasks, ids);
+        customAdapter = new CustomAdapter(MainActivity.this, tasks, ids, tdes, tdate, ttime);
         recyclerView.setAdapter(customAdapter);
         btn.setOnClickListener(this);
 

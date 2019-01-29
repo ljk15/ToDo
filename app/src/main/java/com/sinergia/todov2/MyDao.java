@@ -15,7 +15,7 @@ import static android.arch.persistence.room.OnConflictStrategy.ROLLBACK;
 
 @Dao
 public interface MyDao {
-    @Insert(onConflict = REPLACE)
+    @Insert(onConflict = IGNORE)
     public void addTask(Task task);
 
     @Query("select * from todolist")

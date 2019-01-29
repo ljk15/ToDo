@@ -19,12 +19,21 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
     ArrayList<String> tid;
     ArrayList<String> task;
+    ArrayList<String> tdes;
+    ArrayList<String> tdate;
+    ArrayList<String> ttime;
     Context context;
     Snackbar snackbar;
-    public CustomAdapter(Context context,ArrayList<String> task, ArrayList<String> tid){
+    public CustomAdapter(Context context,ArrayList<String> task, ArrayList<String> tid,
+                         ArrayList<String> tdes, ArrayList<String> tdate, ArrayList<String> ttime){
         this.context = context;
          this.task = task;
          this.tid = tid;
+         this.tdes = tdes;
+         this.tdate = tdate;
+         this.ttime = ttime;
+
+
     }
 
 
@@ -40,31 +49,40 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         holder.tasks.setText(task.get(position));
-        holder.test.setText(tid.get(position));
+        holder.taskid.setText(tid.get(position));
+        holder.descript.setText(tdes.get(position) + "\n");
+        holder.datetime.setText(tdate.get(position)+"\t\t\t\t\t\t"+ ttime.get(position));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if (holder.test.getVisibility()== View.VISIBLE)
-                    holder.test.setVisibility(View.GONE);
+                if (holder.descript.getVisibility()== View.VISIBLE) {
+                    holder.descript.setVisibility(View.GONE);
+                    holder.datetime.setVisibility(View.GONE);
+                }
                 else
-                    holder.test.setVisibility(View.VISIBLE);
+                {
+                    holder.descript.setVisibility(View.VISIBLE);
+                    holder.datetime.setVisibility(View.VISIBLE);
+                }
               Toast.makeText(context, task.get(position), Toast.LENGTH_SHORT).show();
             }
         });
+
         holder.del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                Task task1 = new Task();
-
                 task1.setId(Long.parseLong(tid.get(position)));
-                snackbar.make(view, "Task Deleted :  "+ task.get(position), Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                  MainActivity.database.myDao().delTask(task1);
+                snackbar.make(view, "Task Deleted :  "+ task.get(position), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                MainActivity.database.myDao().delTask(task1);
 
                 tid.remove(position);
                 task.remove(position);
+                tdes.remove(position);
+                tdate.remove(position);
+                ttime.remove(position);
                 notifyItemRemoved(position);
                 notifyItemRangeChanged(position, task.size());
 
@@ -84,11 +102,15 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     }
     public class MyViewHolder extends RecyclerView.ViewHolder{
     TextView tasks;
-    TextView test;
+    TextView descript;
+    TextView taskid;
+    TextView datetime;
     Button del;
     public MyViewHolder(View taskView) {
         super(taskView);
-        test = (TextView) itemView.findViewById(R.id.test);
+        taskid = (TextView) itemView.findViewById(R.id.task_id);
+        descript = (TextView) itemView.findViewById(R.id.task_Desc);
+        datetime = (TextView) itemView.findViewById(R.id.date_time);
         tasks = (TextView) itemView.findViewById(R.id.task_row);
         del = (Button) itemView.findViewById(R.id.del_btn);
     }

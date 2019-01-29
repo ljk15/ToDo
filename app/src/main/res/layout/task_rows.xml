@@ -52,7 +52,15 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/test"
+            android:id="@+id/task_id"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/task_row"
+            app:layout_constraintTop_toTopOf="@+id/task_row" />
+
+        <TextView
+            android:id="@+id/task_Desc"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -61,7 +69,7 @@
             android:layout_weight="5"
             android:padding="10dp"
             android:textColor="#000"
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/del_btn"
@@ -69,6 +77,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/task_row"
             app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/date_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:textSize="10sp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/task_Desc"
+            app:layout_constraintTop_toBottomOf="@+id/task_Desc" />
     </android.support.constraint.ConstraintLayout>
 
 </android.support.v7.widget.CardView>
