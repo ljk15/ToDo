@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -30,15 +31,19 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <EditText
-                android:id="@+id/add_task"
+                android:id="@+id/srch_task"
                 android:layout_width="0dp"
-
+                android:maxLines="1"
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
-                android:hint="Enter Title For Search" />
+                android:hint="Enter Title For Search"
+                android:lines="1"
+                android:singleLine="true"
+                android:minLines="1"
+                />
 
             <ImageButton
-                android:id="@+id/add_btn"
+                android:id="@+id/srch_btn"
                 android:clickable="true"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

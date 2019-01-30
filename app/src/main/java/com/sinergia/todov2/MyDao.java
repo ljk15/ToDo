@@ -23,4 +23,12 @@ public interface MyDao {
 
     @Delete
     public void delTask(Task task);
+
+    @Query("UPDATE todolist SET task_status=:status WHERE task_id = :id")
+    void update(String status, long id);
+
+    @Query("select * from todolist where task_title LIKE '%'||:title||'%'")
+    public List<Task> search(String title);
+
+
 }

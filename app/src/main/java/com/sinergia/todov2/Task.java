@@ -14,6 +14,7 @@ public class Task {
     }
 */
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "task_id")
     private long id;
 
     public long getId() {
@@ -38,6 +39,9 @@ public class Task {
 
     @ColumnInfo(name = "task_time")
     private String time;
+
+    @ColumnInfo(name = "task_status")
+    private String status;
 
     public String getDate() {
         return date;
@@ -69,6 +73,14 @@ public class Task {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
 

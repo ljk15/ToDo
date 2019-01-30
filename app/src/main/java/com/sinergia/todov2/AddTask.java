@@ -1,5 +1,6 @@
 package com.sinergia.todov2;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -27,6 +28,7 @@ public class AddTask extends AppCompatActivity implements View.OnClickListener {
     private Button add_task;
     private EditText task_Date;
     private EditText task_Time;
+    private static String status;
 
     private SimpleDateFormat dateFormat, timeFormat;
 
@@ -38,13 +40,16 @@ public class AddTask extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
+
         dateFormat = new SimpleDateFormat("dd/MM/yyy");
         timeFormat = new SimpleDateFormat("HH:mm");
+
         taskTitle = findViewById(R.id.add_title);
         taskDescription = findViewById(R.id.add_description);
         task_Date = findViewById(R.id.add_date);
         task_Time = findViewById(R.id.add_time);
         add_task = findViewById(R.id.add_task);
+        status = "TODO";
 
         add_task.setOnClickListener(this);
         task_Date.setOnClickListener(this);
@@ -84,11 +89,15 @@ public class AddTask extends AppCompatActivity implements View.OnClickListener {
                 String taskTime = task_Time.getText().toString();
 
 
+
                 Task task = new Task();
                 task.setTitle(taskAdded);
                 task.setDescription(taskDesc);
                 task.setDate(taskDate);
                 task.setTime(taskTime);
+                task.setStatus(status);
+
+
 
                 Calendar cal1 = Calendar.getInstance();
                 task_Date.setText(dateFormat.format(cal1.getTime()));
